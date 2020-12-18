@@ -81,4 +81,4 @@ Si analizamos el código con más atención podemos observar cuatro clases `Simu
 
 Se muestra en vídeo el resultado de la ejecución de la parte base.
 
-[![OpenRAVE Base](http://img.youtube.com/vi/j-N7YpmrsZ4/0.jpg)](http://www.youtube.com/watch?v=j-N7YpmrsZ4)
+[![Desde Cero Base](http://img.youtube.com/vi/JjPXXs3ZV10/0.jpg)](http://www.youtube.com/watch?v=JjPXXs3ZV10)
