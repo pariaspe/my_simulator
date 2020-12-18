@@ -9,6 +9,7 @@ RATE = 0.5
 GOAL = [8, 8]
 
 class Robot:
+    """Basic 2D robot with position and velocity."""
     def __init__(self, pos=[0,0]):
         self.pos = pos
         self.vel = [0, 0]
@@ -19,9 +20,11 @@ class Robot:
 
 
 class RobotView(pygame.Rect):
+    """View of Robot. Helps to visualize the robot over the screen."""
     COLOR_ROBOT = (255, 0, 0)
 
     def __init__(self, sim, robot=None):
+        """inits rect"""
         self.sim = sim
         self.robot = robot
 
@@ -33,12 +36,14 @@ class RobotView(pygame.Rect):
         super().__init__(x, y, self.width, self.height)
 
     def update_pos(self):
+        """Moves Rect and updates robot pose."""
         self.move_ip(*self.robot.vel)
         x = (self.center[0] - self.sim.cell_width/4.0) / self.sim.cell_width
         y = (self.center[1] - self.sim.cell_height/4.0) / self.sim.cell_height
         self.robot.pos = [x, y]
 
 class Map:
+    """Basic Map."""
     def __init__(self, filename):
         self.cells = genfromtxt(filename, delimiter=',')
         self.columns = self.cells.shape[0]
@@ -46,12 +51,14 @@ class Map:
 
 
 class Simulator:
+    """Simulator. Displays a screen and keeps it updated."""
     SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
     COLOR_BACKGROUND = (0, 0, 0)
     COLOR_WALL = (255, 255, 255)
     COLOR_ROBOT = (255, 0, 0)
 
     def __init__(self, map=None):
+        """Inits screen. Full black."""
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT), 0, 32)
         self.screen.fill(self.COLOR_BACKGROUND)
 
@@ -71,6 +78,7 @@ class Simulator:
             self.load_map()
 
     def load_map(self):
+        """Loads a map over the screen."""
         self.cell_width = self.SCREEN_WIDTH/self.map.columns
         self.cell_height = self.SCREEN_HEIGHT/self.map.rows
 
@@ -84,11 +92,13 @@ class Simulator:
         pygame.display.update()
 
     def load_robot(self, robot):
+        """Loads a robot over the screen."""
         self.robot_view = RobotView(self, robot)
         pygame.draw.rect(self.screen, self.COLOR_ROBOT, self.robot_view)
         pygame.display.update()
 
     def update(self):
+        """Updates the screen and objects over it."""
         pygame.draw.rect(self.screen, self.COLOR_BACKGROUND, self.robot_view)
         self.robot_view.update_pos()
         pygame.draw.rect(self.screen, self.COLOR_ROBOT, self.robot_view)
