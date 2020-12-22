@@ -12,6 +12,7 @@ Link: [pariaspe/my_simulator](https://github.com/pariaspe/my_simulator)
 - [3. Base](#3-base)
 - [4. Extras](#4-extras)
     - [4.1. Extra 1](#extra-1-vídeo-parte-base)
+    - [4.2. Extra 2](#extra-2-algoritmo-a*)
 
 ---
 
@@ -23,6 +24,7 @@ Para la práctica se han realizado los siguientes hitos:
 
 - **Extra**:
     1. Se presenta un **vídeo** que muestra la ejecución de la parte base.
+    2. Se añade un algortimo de planificación A* para alcanzar la meta.
 
 ## 2. Estructura de carpetas
 El esquema de organización del repositorio es el siguiente:
@@ -82,3 +84,49 @@ Si analizamos el código con más atención podemos observar cuatro clases `Simu
 Se muestra en vídeo el resultado de la ejecución de la parte base.
 
 [![Desde Cero Base](http://img.youtube.com/vi/JjPXXs3ZV10/0.jpg)](http://www.youtube.com/watch?v=JjPXXs3ZV10)
+
+### Extra 2: Algoritmo A*
+
+La ruta que debe seguir el robot la calcula el algoritmo desarrollado en la asignatura de planificación y un nuevo bucle de control se encarga de el robot vaya siguiendo los pasos hasta alcanzar la meta. La ruta se obtiene mediante el método `get_route` y se optimiza mediante el método `optimize_route`. Para evitar obstaculos debido al volumen del robot, el mapa se infla mediante el método `inflate_map` que simula el mismo escenario para un robot puntual. El bucle de control se muestra a continuación:
+
+```python
+route = get_route(inFileStr.split(".")[0], [int(initX), int(initY)], [GOAL[0]-1, GOAL[1]-1])
+route.append(GOAL)
+
+ref = route.pop(0)
+print("Going to", ref)
+while True:
+    velx = robot.pos[0] - ref[1]
+    if velx > EPSILON:
+        velx = -VEL
+    elif velx < -EPSILON:
+        velx = VEL
+    else:
+        velx = 0.0
+
+    vely = robot.pos[1] - ref[0]
+    if vely > EPSILON:
+        vely = -VEL
+    elif vely < -EPSILON:
+        vely = VEL
+    else:
+        vely = 0.0
+
+    robot.set_vel([velx, vely])
+    if velx == 0 and vely == 0:
+        if len(route) == 0:
+            break
+        ref = route.pop(0)
+        print("Going to", ref)
+
+    # handle events, avoiding gui freeze
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            break
+    sim.update()
+
+    print("Robot at", robot.pos)
+    time.sleep(RATE)
+```
+
+Para cada paso de la ruta se calcula la diferencia entre la posición del robot y la posición de referencia. Se fija una velocidad acorde para alcanzar la siguiente posición y se itera hasta llegar a la meta.
