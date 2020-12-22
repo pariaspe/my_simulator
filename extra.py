@@ -149,15 +149,15 @@ class RobotView(pygame.Rect):
 
     def update_pos(self):
         """Moves Rect and updates robot pose."""
-        # print(self.collidelist(self.sim.map.walls))
-        if self.collidelist(self.sim.map.walls) == -1:
+        rect = self.move(*self.robot.vel)  # movimiento potencial
+        if rect.collidelist(self.sim.map.walls) == -1:
             self.move_ip(*self.robot.vel)
             x = (self.center[0] - self.sim.cell_width/4.0) / self.sim.cell_width
             y = (self.center[1] - self.sim.cell_height/4.0) / self.sim.cell_height
             self.robot.pos = [x, y]
         else:
-            print("collision")
-            self.robot.set_vel([0, 0])
+            print("[Info] Potencial collision detected. Robot stopped.")
+            self.robot.set_vel([0, 0])  # se detiene el robot
 
 class Map:
     """Basic Map."""
