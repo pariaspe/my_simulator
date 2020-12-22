@@ -7,12 +7,18 @@ import os
 from numpy import genfromtxt
 from subprocess import Popen, PIPE
 from tools import astar
+import argparse
 
+MAP = "map1"
+START_X = 2
+START_Y = 2
+END_X = 8
+END_Y = 8
 
 LOCAL_PATH = os.path.dirname(os.path.abspath(__file__))
 FILE_NAME = LOCAL_PATH + "/{0}.csv"
 RATE = 0.5
-GOAL = [8, 8]
+GOAL = [END_X, END_Y]
 VEL = 10.0
 EPSILON = 0.1
 
@@ -210,27 +216,25 @@ class Simulator:
         pygame.draw.rect(self.screen, self.COLOR_ROBOT, self.robot_view)
         pygame.display.update()
 
+    def control_robot(self, incrementX, incrementY):
+        key = pygame.key.get_pressed()
+        if key[pygame.K_LEFT]:
+            self.robot_view.robot.set_vel([-VEL*2, 0])
+        if key[pygame.K_RIGHT]:
+            self.robot_view.robot.set_vel([VEL*2, 0])
+        if key[pygame.K_UP]:
+            self.robot_view.robot.set_vel([0, -VEL*2])
+        if key[pygame.K_DOWN]:
+            self.robot_view.robot.set_vel([0, VEL*2])
+        if key[pygame.K_SPACE]:
+            self.robot_view.robot.set_vel([0, 0])
+        self.update()
 
-if __name__ == "__main__":
-    # Parse CLI arguments
-    if (len(sys.argv) != 4):
-        print("./base.py map1.csv 2 2")
-        quit()
-    inFileStr = sys.argv[1]
-    initX = float(sys.argv[2])
-    initY = float(sys.argv[3])
 
-    route = get_route(inFileStr.split(".")[0], [int(initX), int(initY)], [GOAL[0]-1, GOAL[1]-1])
+def main(sim, robot, map_name, start, end):
+    route = get_route(map_name, start, [end[0]-1, end[1]-1])
     route.append(GOAL)
     print(route)
-
-    sim = Simulator()
-    map = Map(inFileStr)
-    sim.map = map
-
-    robot = Robot([1, 1])
-    sim.load_robot(robot)
-    time.sleep(1)
 
     ref = route.pop(0)
     print("Going to", ref)
@@ -270,3 +274,40 @@ if __name__ == "__main__":
     print("GOAL REACHED!")
     time.sleep(1)
     print("BYE!")
+
+
+if __name__ == "__main__":
+    # Command line argument parser, try: python3 a-star.py -h
+    parser = argparse.ArgumentParser(description="My Simulator.")
+    parser.add_argument('-m', '--map', metavar='MAP', dest='map', default=MAP, help='change map folder')
+    parser.add_argument('-s', '--start', type=int, nargs=2, metavar='N', dest='start', default=[START_X, START_Y], help='change start point')
+    parser.add_argument('-e', '--end', type=int, nargs=2, metavar='N', dest='end', default=[END_X, END_Y], help='change end point')
+    parser.add_argument('-i', action='store_true', help='interactive mode')
+    args = parser.parse_args()
+
+    map_name = args.map
+    start = args.start
+    end = args.end
+
+    sim = Simulator()
+    map = Map(map_name + ".csv")
+    sim.map = map
+
+    robot = Robot([1, 1])
+    sim.load_robot(robot)
+    time.sleep(1)
+
+    if args.i:
+        print("Interactive Mode")
+        print("Control de robot with the arrows (space to stop the robot).")
+
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+
+            sim.control_robot(0, 0)
+            time.sleep(RATE)
+    else:
+        main(sim, robot, map_name, start, end)

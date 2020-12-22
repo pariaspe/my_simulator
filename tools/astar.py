@@ -307,7 +307,5 @@ if __name__ == "__main__":
     if args.i:
         map, start, end = read_from_user(map, start, end)
 
-    print(map, start, end)
-
     if map is not None and start is not None and end is not None:
         main(FILE_NAME.format(map), start, end)

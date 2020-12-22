@@ -13,6 +13,7 @@ Link: [pariaspe/my_simulator](https://github.com/pariaspe/my_simulator)
 - [4. Extras](#4-extras)
     - [4.1. Extra 1](#extra-1-vídeo-parte-base)
     - [4.2. Extra 2](#extra-2-algoritmo-a*)
+    - [4.3. Extra 3](#extra-3-control-interactivo-del-robot)
 
 ---
 
@@ -24,7 +25,8 @@ Para la práctica se han realizado los siguientes hitos:
 
 - **Extra**:
     1. Se presenta un **vídeo** que muestra la ejecución de la parte base.
-    2. Se añade un algortimo de planificación A* para alcanzar la meta.
+    2. Se añade un **algortimo de planificación** A* para alcanzar la meta.
+    3. **Control interactivo** del robot.
 
 ## 2. Estructura de carpetas
 El esquema de organización del repositorio es el siguiente:
@@ -130,3 +132,36 @@ while True:
 ```
 
 Para cada paso de la ruta se calcula la diferencia entre la posición del robot y la posición de referencia. Se fija una velocidad acorde para alcanzar la siguiente posición y se itera hasta llegar a la meta.
+
+### Extra 3: Control Interactivo del Robot
+Se ha añadido un procesador de argumentos en el incio de la ejecución del programa. La instrucción `python extra.py -h` muestra la ayuda:
+
+```bash
+parias@parias-msi:~/repos/my_simulator$ python extra.py -h
+pygame 2.0.0 (SDL 2.0.12, python 3.6.9)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+usage: extra.py [-h] [-m MAP] [-s N N] [-e N N] [-i]
+
+My Simulator.
+
+optional arguments:
+  -h, --help           show this help message and exit
+  -m MAP, --map MAP    change map folder
+  -s N N, --start N N  change start point
+  -e N N, --end N N    change end point
+  -i                   interactive mode
+```
+
+Entre las opciones disponibles se encuentran cambiar el mapa (por defecto, `map1.csv`), cambiar el punto de partida (por defecto `[2 2]`), cambiar el punto de meta (por defecto, `[8 8]`) y entrar en el modo interactivo.
+Así pues, ejecutando `python extra.py -i` se accede en un modo interactivo donde el usuario puede controlar al robot:
+
+```bash
+parias@parias-msi:~/repos/my_simulator$ python extra.py -i
+pygame 2.0.0 (SDL 2.0.12, python 3.6.9)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Interactive Mode
+Control de robot with the arrows (space to stop the robot).
+
+```
+
+Como indica el mensaje al ejecutar, el robot se puede controlar utilizando las teclas de flechas y del espacio para detenerse.
