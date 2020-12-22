@@ -149,10 +149,15 @@ class RobotView(pygame.Rect):
 
     def update_pos(self):
         """Moves Rect and updates robot pose."""
-        self.move_ip(*self.robot.vel)
-        x = (self.center[0] - self.sim.cell_width/4.0) / self.sim.cell_width
-        y = (self.center[1] - self.sim.cell_height/4.0) / self.sim.cell_height
-        self.robot.pos = [x, y]
+        # print(self.collidelist(self.sim.map.walls))
+        if self.collidelist(self.sim.map.walls) == -1:
+            self.move_ip(*self.robot.vel)
+            x = (self.center[0] - self.sim.cell_width/4.0) / self.sim.cell_width
+            y = (self.center[1] - self.sim.cell_height/4.0) / self.sim.cell_height
+            self.robot.pos = [x, y]
+        else:
+            print("collision")
+            self.robot.set_vel([0, 0])
 
 class Map:
     """Basic Map."""
@@ -160,6 +165,8 @@ class Map:
         self.cells = genfromtxt(filename, delimiter=',')
         self.columns = self.cells.shape[0]
         self.rows = self.cells.shape[1]
+
+        self.walls = []
 
 
 class Simulator:
@@ -200,7 +207,8 @@ class Simulator:
                 if cell == 0:
                     continue
 
-                pygame.draw.rect(self.screen, self.COLOR_WALL, pygame.Rect(self.cell_width*j, self.cell_height*i, self.cell_width, self.cell_height))
+                wall = pygame.draw.rect(self.screen, self.COLOR_WALL, pygame.Rect(self.cell_width*j, self.cell_height*i, self.cell_width, self.cell_height))
+                self.map.walls.append(wall)
         pygame.display.update()
 
     def load_robot(self, robot):

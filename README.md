@@ -14,6 +14,8 @@ Link: [pariaspe/my_simulator](https://github.com/pariaspe/my_simulator)
     - [4.1. Extra 1](#extra-1-vídeo-parte-base)
     - [4.2. Extra 2](#extra-2-algoritmo-a*)
     - [4.3. Extra 3](#extra-3-control-interactivo-del-robot)
+    - [4.4. Extra 4](#extra-4-vídeo-parte-extra)
+    - [4.5. Extra 5](#extra-5-paredes)
 
 ---
 
@@ -27,6 +29,8 @@ Para la práctica se han realizado los siguientes hitos:
     1. Se presenta un **vídeo** que muestra la ejecución de la parte base.
     2. Se añade un **algortimo de planificación** A* para alcanzar la meta.
     3. **Control interactivo** del robot.
+    4. Se adjunta un **vídeo** con la ejecución de la parte extra.
+    5. Las **paredes** son objetos sólidos que el robot no puede atravesar (**WIP**).
 
 ## 2. Estructura de carpetas
 El esquema de organización del repositorio es el siguiente:
@@ -165,3 +169,12 @@ Control de robot with the arrows (space to stop the robot).
 ```
 
 Como indica el mensaje al ejecutar, el robot se puede controlar utilizando las teclas de flechas y del espacio para detenerse.
+
+### Extra 4: Vídeo Parte Extra
+Se muestra en vídeo el resultado de la ejecución de la parte extra.
+
+[![Desde Cero Extra](http://img.youtube.com/vi/fDPL8TaYknk/0.jpg)](http://www.youtube.com/watch?v=fDPL8TaYknk)
+
+
+### Extra 5: Paredes
+**WIP**
