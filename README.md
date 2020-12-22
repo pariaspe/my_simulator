@@ -1,5 +1,5 @@
 # Entrega: Desde Cero
-Este repositorio contiene la generación de laberinto con un robot en python, moviendo el robot desde el origen hasta la meta. Este desplazamiento se consigue mediante el uso de un plugin de openRAVE desarrollado en python para la resolución de este ejercicio.
+Este repositorio contiene el desarrollo de un pequeño simulador donde un robot se desplaza dentro de un mapa 2D. El objetivo consiste en desarrollar un algoritmo en python que permita al robot alcanzar la meta dentro del mapa y mostrar correctamente la simulación.
 
 Autor: **Pedro Arias Pérez**
 
@@ -23,7 +23,7 @@ Link: [pariaspe/my_simulator](https://github.com/pariaspe/my_simulator)
 Para la práctica se han realizado los siguientes hitos:
 
 - **Base**:
-    1. Se presenta un script de python que controla al robot para que alcance la meta sobre un mapa sencillo (map1).
+    1. Se presenta un script de python que lanza el simulador y controla al robot para que alcance la meta sobre un mapa sencillo (map1).
 
 - **Extra**:
     1. Se presenta un **vídeo** que muestra la ejecución de la parte base.
