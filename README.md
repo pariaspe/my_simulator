@@ -12,7 +12,7 @@ Link: [pariaspe/my_simulator](https://github.com/pariaspe/my_simulator)
 - [3. Base](#3-base)
 - [4. Extras](#4-extras)
     - [4.1. Extra 1](#extra-1-vídeo-parte-base)
-    - [4.2. Extra 2](#extra-2-algoritmo-a*)
+    - [4.2. Extra 2](#extra-2-algoritmo-a)
     - [4.3. Extra 3](#extra-3-control-interactivo-del-robot)
     - [4.4. Extra 4](#extra-4-paredes)
     - [4.5. Extra 5](#extra-5-vídeo-parte-extra)
@@ -88,7 +88,7 @@ El siguiente script (`pygame-display.py`) permite visualizar el mapa. El script 
 parias@pariaas-msi:~/repos/my_simulator$ ./scripts/pygame-display.py map1.csv 1 1
 ```
 
-![map](/doc/map1.png)
+![map](/docs/map1.png)
 
 El código del fichero (`base.py`) se encarga de simular el recorrido del robot  para alcanzar la meta. Destacar que el algorimo seguido por el robot es muy simple, primero trata de alcanzar una posición con una Y superior a la de meta (superior a 8) y después lo mismo para la coordenada X.
 
@@ -199,7 +199,7 @@ def update_pos(self):
 
 Se adjunta un gif con la ejecución del simulador en modo interactivo y donde se muestran varias colisiones.
 
-![collision](/doc/simulador-extra.gif)
+![collision](/docs/simulador-extra.gif)
 
 ### Extra 5: Vídeo Parte Extra
 Se muestra en vídeo el resultado de la ejecución de la parte extra.
